@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="ic35.js"></script>
+    <style>
+      #root {
+        display: grid;
+        place-items:stretch stretch;
+        grid-template-rows: auto;
+        position:absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        perspective:50vw;
+      }
+
+      /*dev visibility*/
+      x-box,y-box,z-box,leaf-box {
+        border:1px solid black;
+        grid-row-gap:4px;
+        grid-column-gap:4px;
+        padding:4px;
+      }
+
+      /*3d stuff*/
+      .spread x-box:after{content:"X";}
+      .spread y-box:after{content:"Y";}
+      .spread z-box:after, z-box.spread:after{content:"Z";}
+      .spread leaf-box:after{content:"LEAF";}
+      .spread x-box:after,y-box:after,z-box:after,leaf-box:after {
+        position: absolute;
+        display: block;
+        top: 0px;
+        left:0px;
+        right:0px;
+        bottom:0px;
+        font-size:50px;
+        text-align: right;
+      }
+      z-box {
+        background-color:rgba(255,255,255,0.25);
+      }
+      x-box {
+        background-color:rgba(0,0,255,0.25);
+      }
+      y-box {
+        background-color:rgba(255,0,0,0.25);
+      }
+      leaf-box {
+        background-color:rgba(0,255,0,0.25);
+      }
+
+
+      .spread-z * {
+        transform: translateZ(75px) !important;
+      }
+      .spread-z * + * {
+        transform: translateZ(300px) !important;
+      }
+      .spread * {
+        transform-style: preserve-3d;
+        overflow: visible !important;
+        transform: translateZ(75px) !important;
+      }
+      .spread, .spread-z {
+        transform: translateZ(-1000px) rotateY(-50deg);
+        transform-style: preserve-3d;
+        overflow: visible !important;
+      }
+
+
+      .hide {display:none;}
+    </style>
+  </head>
+  <body>
+    <div id='root'>
+      <z-box>
+        <y-box>
+          <x-box >
+            <leaf-box>yaddå</leaf-box>
+            <leaf-box>yaddå</leaf-box>
+            <leaf-box>yaddå</leaf-box>
+          </x-box>
+          <leaf-box>yaddå</leaf-box>
+          <leaf-box>yaddå</leaf-box>
+          <x-box>
+            <y-box>
+              <leaf-box>yaddå</leaf-box>
+              <leaf-box>yaddå</leaf-box>
+              <leaf-box>yaddå</leaf-box>
+            </y-box>
+            <y-box>
+              <leaf-box>yaddå</leaf-box>
+              <leaf-box>yaddå</leaf-box>
+            </y-box>
+          </x-box>
+        </y-box>
+        <x-box>
+          <y-box>
+            <leaf-box>yaddå</leaf-box>
+            <leaf-box>yaddå</leaf-box>
+            <leaf-box>yaddå</leaf-box>
+          </y-box>
+          <y-box>
+            <leaf-box>yaddå</leaf-box>
+            <leaf-box>yaddå</leaf-box>
+          </y-box>
+        </x-box>
+      </z-box>
+    </div>
+<script>
+document.body.addEventListener('keydown', function (e) {
+  console.log(e.code)
+  if (e.code === 'KeyH') { document.querySelector('#root > z-box > x-box').classList.toggle('hide') }
+  if (e.code === 'KeyJ') { document.querySelector('#root > z-box').classList.toggle('spread') }
+  if (e.code === 'KeyK') { document.querySelector('#root > z-box').classList.toggle('spread-z') }
+})
+</script>
+  </body>
+</html>
